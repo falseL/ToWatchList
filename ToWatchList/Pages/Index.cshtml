@@ -1,0 +1,19 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <form method="post">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Value</span>
+            </div>
+            <input type="text" class="form-control" asp-for="InputText" />
+        </div>
+        <button asp-page-handler="GetString" class="btn btn-outline-primary">Get</button>
+        <button asp-page-handler="SetString" class="btn btn-outline-primary">Set</button>
+    </form>
+    <p>@Model.OutputText</p>
+</div>
