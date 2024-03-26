@@ -16,6 +16,9 @@ namespace ToWatchList.Data
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("title")]
+        public string Title { set { Name = value; } }
+
         [JsonProperty("original_language")]
         public string OriginalLanguage { get; set; }
 
@@ -40,6 +43,9 @@ namespace ToWatchList.Data
         [JsonProperty("first_air_date")]
         public string FirstAirDate { get; set; }
 
+        [JsonProperty("release_date")]
+        public string ReleaseDate { set { FirstAirDate = value; } }
+
         [JsonProperty("vote_average")]
         public float VoteAverage { get; set; }
 
@@ -63,7 +69,7 @@ namespace ToWatchList.Data
         {
             get
             {
-                return $"https://image.tmdb.org/t/p//{PosterPath}";
+                return $"https://image.tmdb.org/t/p/w342/{PosterPath}";
             }
         }
 
