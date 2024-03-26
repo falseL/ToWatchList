@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToWatchList", "ToWatchList\ToWatchList.csproj", "{DEBC7009-3917-4816-9923-30AD011755E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToWatchList", "ToWatchList\ToWatchList.csproj", "{76CE2095-0E5A-4736-B7C8-843D883BAA81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DEBC7009-3917-4816-9923-30AD011755E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEBC7009-3917-4816-9923-30AD011755E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEBC7009-3917-4816-9923-30AD011755E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEBC7009-3917-4816-9923-30AD011755E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76CE2095-0E5A-4736-B7C8-843D883BAA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76CE2095-0E5A-4736-B7C8-843D883BAA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76CE2095-0E5A-4736-B7C8-843D883BAA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76CE2095-0E5A-4736-B7C8-843D883BAA81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {25342352-192B-4125-BFB9-BF84B9F84224}
+		SolutionGuid = {E8263FF0-5CCD-40B7-82BF-D23FFE8C2FA9}
 	EndGlobalSection
 EndGlobal

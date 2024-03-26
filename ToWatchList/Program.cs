@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using ToWatchList.Data;
+
 namespace ToWatchList
 {
     public class Program
@@ -8,6 +12,8 @@ namespace ToWatchList
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddServerSideBlazor();
+            builder.Services.AddSingleton<TMDBService>();
 
             var app = builder.Build();
 
@@ -16,13 +22,14 @@ namespace ToWatchList
             {
                 app.UseExceptionHandler("/Error");
             }
+
+
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.MapRazorPages();
+            app.MapBlazorHub();
+            app.MapFallbackToPage("/_Host");
 
             app.Run();
         }

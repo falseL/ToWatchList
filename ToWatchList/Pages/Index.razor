@@ -1,0 +1,52 @@
+﻿@page "/"
+@using ToWatchList.Data
+@using ToWatchList.Interfaces
+@inject TMDBService TMDBService
+
+<PageTitle>Home</PageTitle>
+
+<h1>Home</h1>
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search for a movie, tv show" @bind="searchText" @bind:after="Search" />
+    <button class="btn btn-outline-secondary" type="button" @onclick="Search">Search</button>
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var item in MediaItems)
+    {
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="@item.PosterPathFull" class="img-fluid rounded-start">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.TruncatedOverview</p>
+                        <p class="card-text"><small class="text-body-secondary">First Air Date: @item.FirstAirDate</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@code {
+    private string searchText = "";
+    private string currentValue = "";
+    private readonly IDatabaseStorage Database = DatabaseStorageFactory.GetDatabaseStorage();
+
+    public List<MediaItem> MediaItems { get; set; } = new List<MediaItem>();
+    public async Task Search()
+    {
+        if (searchText.Length >= 3)
+        {
+            var result = await TMDBService.SearchMulti(searchText);
+            MediaItems = result.Results.ToList();
+        }
+    }
+}

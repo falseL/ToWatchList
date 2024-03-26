@@ -1,0 +1,32 @@
+﻿@page "/watchList"
+@using ToWatchList.Data
+@using ToWatchList.Interfaces
+
+<PageTitle>Watch List</PageTitle>
+
+<h1>Watch List</h1>
+
+<p role="status">value: @currentValue</p>
+
+<input class="" @bind="newValue" />
+<button class="btn btn-primary" @onclick="GetValue">Get value</button>
+<button class="btn btn-primary" @onclick="SetValue">Set value</button>
+
+@code {
+    private string currentValue = "";
+    private string? newValue;
+    private string demoKey = "demo-key";
+
+    private readonly IDatabaseStorage Database = DatabaseStorageFactory.GetDatabaseStorage();
+
+    private async Task GetValue()
+    {
+        currentValue = await Database.GetAsync(demoKey);
+    }
+
+    private async Task SetValue()
+    {
+        await Database.SetAsync(demoKey, newValue);
+        currentValue = "Updated";
+    }
+}
