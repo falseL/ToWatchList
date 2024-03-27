@@ -21,6 +21,19 @@
     }
 </div>
 
+<div class="p-4 g-4" hidden="@(MediaItems.Count!=0)">
+    <div class="alert alert-secondary" role="alert">
+        @if(searchText.Length == 0)
+        {
+            @:Enter Query
+        }
+        else
+        {
+            @:No result, try a different query
+        }
+    </div>
+</div>
+
 
 @code {
     private string searchText = "";
