@@ -10,7 +10,7 @@
 <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 g-4">
     @foreach (var item in MediaItems)
     {
-        <MediaCard HideSave=true MediaItem="@item" ></MediaCard>
+        <MediaCard ShowDelete=true MediaItem="@item" ItemButtonAction="RemoveItemFromList"></MediaCard>
     }
 </div>
 
@@ -31,10 +31,19 @@
 
     private async Task GetMediaItemsAsync()
     {
+        MediaItems.Clear();
         var list = await Database.GetListAsync();
         foreach (var jsonString in list)
         {
             MediaItems.Add(JsonConvert.DeserializeObject<MediaItem>(jsonString));
         }
+    }
+
+    public async Task RemoveItemFromList(MediaItem media)
+    {
+        string mediaJson = JsonConvert.SerializeObject(media);
+        await Database.RemoveFromListAsync(mediaJson);
+        await GetMediaItemsAsync();
+        StateHasChanged();
     }
 }

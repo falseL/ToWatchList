@@ -13,7 +13,6 @@ namespace ToWatchList.Data
         public string BackdropPath { get; set; }
 
         [JsonProperty("id")]
-        [JsonIgnore]
         public int Id { get; set; }
 
         [JsonProperty("name")]
@@ -66,6 +65,7 @@ namespace ToWatchList.Data
         [JsonIgnore]
         public string[] OriginCountry { get; set; }
 
+        [JsonIgnore]
         public string TruncatedOverview
         {
             get
@@ -76,6 +76,8 @@ namespace ToWatchList.Data
                 return Overview.Length <= 200 ? Overview : Overview.Substring(0, 200) + "...";
             }
         }
+
+        [JsonIgnore]
         public string PosterPathFull
         {
             get

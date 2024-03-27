@@ -24,5 +24,10 @@ namespace ToWatchList.Data
             List<string> stringList = redisValues.Select(value => value.ToString()).ToList();
             return stringList;
         }
+
+        public async Task<long> RemoveFromListAsync(string item)
+        {
+            return await redisDb.ListRemoveAsync(listKeyName, item);
+        }
     }
 }

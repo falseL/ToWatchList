@@ -14,5 +14,9 @@ namespace ToWatchList.Data
             throw new NotImplementedException();
         }
 
+        public Task<long> RemoveFromListAsync(string item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

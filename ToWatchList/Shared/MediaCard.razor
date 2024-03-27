@@ -6,8 +6,10 @@
                 <img src="@MediaItem.PosterPathFull" class="img-fluid rounded-start">
             </div>
             <div class="col-md-8">
-                <div hidden="@HideSave" class="float-end p-2">
-                    <button type="button" class="btn btn-dark" @onclick="InvokeSaveItemToList" disabled="@IsDisabled"><span class="oi oi-plus" aria-hidden="true"></span></button>
+                <div class="float-end p-2">
+                    <button type="button" class="btn btn-dark" @onclick="InvokeItemButtonAction" disabled="@IsDisabled">
+                        <span class="oi @(ShowDelete? "oi-minus":"oi-plus") " aria-hidden="true"></span>
+                    </button>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">@MediaItem.Name</h5>
@@ -23,14 +25,15 @@
     [Parameter]
     public MediaItem? MediaItem { get; set; }
     [Parameter]
-    public Func<MediaItem,Task>? SaveItemToList { get; set; }
+    public Func<MediaItem, Task>? ItemButtonAction { get; set; }
     [Parameter]
-    public bool HideSave { get; set; }
+    public bool ShowDelete { get; set; }
+    [Parameter]
+    public bool IsDisabled { get; set; }
 
-    private bool IsDisabled;
-    private void InvokeSaveItemToList()
+    private void InvokeItemButtonAction()
     {
-        SaveItemToList?.Invoke(MediaItem);
-        IsDisabled = true;
+        ItemButtonAction?.Invoke(MediaItem);
+        IsDisabled = !ShowDelete;
     }
 }
