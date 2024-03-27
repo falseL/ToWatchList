@@ -2,7 +2,7 @@
 {
     public interface IDatabaseStorage
     {
-        Task<string> GetAsync(string key);
-        Task<bool> SetAsync(string key, string value);
+        Task<long> AddToListAsync(string media);
+        Task<List<string>> GetListAsync();
     }
 }

@@ -4,14 +4,15 @@ namespace ToWatchList.Data
 {
     public class SQLiteService : IDatabaseStorage
     {
-        public Task<string> GetAsync(string key)
+        public Task<long> AddToListAsync(string media)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetAsync(string key, string value)
+        public Task<List<string>> GetListAsync()
         {
             throw new NotImplementedException();
         }
+
     }
 }

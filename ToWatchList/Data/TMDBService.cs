@@ -19,7 +19,7 @@ namespace ToWatchList.Data
             return searchResponse;
         }
 
-        public async Task<string> GetTMDBResponseAsync(string path)
+        private async Task<string> GetTMDBResponseAsync(string path)
         {
             var request = new HttpRequestMessage
             {
@@ -35,5 +35,21 @@ namespace ToWatchList.Data
             }
         }
 
+        //public async Task<MediaItem> GetDetailByIDAsync(string id)
+        //{
+        //    var jsonString = await GetTMDBResponseAsync($"/movie/{id}");
+        //    MediaItem item = JsonConvert.DeserializeObject<MediaItem>(jsonString);
+        //    return item;
+        //}
+
+        //public async Task<List<MediaItem>> GetListDetail(List<string> ids)
+        //{
+        //    List<MediaItem> list = new List<MediaItem>();
+        //    foreach (var id in ids)
+        //    {
+        //        list.Add(await GetDetailByIDAsync(id));
+        //    }
+        //    return list;
+        //}
     }
 }

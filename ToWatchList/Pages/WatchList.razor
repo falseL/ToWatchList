@@ -1,32 +1,40 @@
 ﻿@page "/watchList"
 @using ToWatchList.Data
 @using ToWatchList.Interfaces
+@using Newtonsoft.Json
 
 <PageTitle>Watch List</PageTitle>
 
 <h1>Watch List</h1>
 
-<p role="status">value: @currentValue</p>
-
-<input class="" @bind="newValue" />
-<button class="btn btn-primary" @onclick="GetValue">Get value</button>
-<button class="btn btn-primary" @onclick="SetValue">Set value</button>
+<div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 g-4">
+    @foreach (var item in MediaItems)
+    {
+        <MediaCard HideSave=true MediaItem="@item" ></MediaCard>
+    }
+</div>
 
 @code {
-    private string currentValue = "";
-    private string? newValue;
-    private string demoKey = "demo-key";
+    private readonly List<MediaItem> MediaItems;
+    private readonly IDatabaseStorage Database;
 
-    private readonly IDatabaseStorage Database = DatabaseStorageFactory.GetDatabaseStorage();
-
-    private async Task GetValue()
+    public WatchList()
     {
-        currentValue = await Database.GetAsync(demoKey);
+        Database = DatabaseStorageFactory.GetDatabaseStorage();
+        MediaItems = new List<MediaItem>();
     }
 
-    private async Task SetValue()
+    protected override Task OnInitializedAsync()
     {
-        await Database.SetAsync(demoKey, newValue);
-        currentValue = "Updated";
+        return GetMediaItemsAsync();
+    }
+
+    private async Task GetMediaItemsAsync()
+    {
+        var list = await Database.GetListAsync();
+        foreach (var jsonString in list)
+        {
+            MediaItems.Add(JsonConvert.DeserializeObject<MediaItem>(jsonString));
+        }
     }
 }

@@ -6,20 +6,23 @@ namespace ToWatchList.Data
     public class RedisService : IDatabaseStorage
     {
         private readonly IDatabase redisDb;
+        private static string listKeyName = "toWatchList";
         public RedisService(string connectionString)
         {
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(connectionString);
             redisDb = redis.GetDatabase();
         }
 
-        public async Task<string> GetAsync(string key)
+        public async Task<long> AddToListAsync(string media)
         {
-            return await redisDb.StringGetAsync(key);
+            return await redisDb.ListRightPushAsync(listKeyName, media);
         }
 
-        public async Task<bool> SetAsync(string key, string value)
+        public async Task<List<string>> GetListAsync()
         {
-            return await redisDb.StringSetAsync(key, value);
+            var redisValues = await redisDb.ListRangeAsync(listKeyName);
+            List<string> stringList = redisValues.Select(value => value.ToString()).ToList();
+            return stringList;
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@using ToWatchList.Data;
+<div hidden="@string.IsNullOrEmpty(MediaItem.FirstAirDate)" class="col">
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="@MediaItem.PosterPathFull" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8">
+                <div hidden="@HideSave" class="float-end p-2">
+                    <button type="button" class="btn btn-dark" @onclick="InvokeSaveItemToList" disabled="@IsDisabled"><span class="oi oi-plus" aria-hidden="true"></span></button>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@MediaItem.Name</h5>
+                    <p class="card-text">@MediaItem.TruncatedOverview</p>
+                    <p hidden="@string.IsNullOrEmpty(MediaItem.FirstAirDate)" class="card-text"><small class="text-body-secondary">First Air Date: @MediaItem.FirstAirDate</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public MediaItem? MediaItem { get; set; }
+    [Parameter]
+    public Func<MediaItem,Task>? SaveItemToList { get; set; }
+    [Parameter]
+    public bool HideSave { get; set; }
+
+    private bool IsDisabled;
+    private void InvokeSaveItemToList()
+    {
+        SaveItemToList?.Invoke(MediaItem);
+        IsDisabled = true;
+    }
+}
