@@ -8,6 +8,10 @@ namespace ToWatchList.Data
         private readonly string connectionString;
         private static string tableName = "toWatchList";
 
+        /// <summary>
+        /// Using System.Data.SQLite for simplicity, Could use EFCore for better modeling.
+        /// </summary>
+        /// <param name="dbPath"></param>
         public SQLiteService(string dbPath)
         {
             connectionString = $"Data Source={dbPath};Version=3;";

@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Security.Cryptography.Xml;
 using Newtonsoft.Json;
+using ToWatchList.Data.Model;
 using ToWatchList.Interfaces;
 using static System.Net.WebRequestMethods;
 
@@ -12,6 +13,11 @@ namespace ToWatchList.Data
         private readonly string baseUrl = "https://api.themoviedb.org/3";
         private readonly string token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMWYyZTM1ZDQzMWEyMTE2ODEzMTJiNjY1NzI2NmU2MyIsInN1YiI6IjYzYzViMWFlYWQ1OWI1MDIzZjBiNzFhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TfONESfB6lWe0jNmSjuJwrebQ7_c5VlIO_FgMbZdva4";
 
+        /// <summary>
+        /// Return a list of media based on the query text
+        /// </summary>
+        /// <param name="query">User query text</param>
+        /// <returns>List of media, inside ApiResponse</returns>
         public async Task<ApiResponse> SearchMulti(string query)
         {
             var jsonString = await GetTMDBResponseAsync($"/search/multi?include_adult=false&query={query}&language=en-US");
@@ -19,6 +25,11 @@ namespace ToWatchList.Data
             return searchResponse;
         }
 
+        /// <summary>
+        /// Helper class, can be use for all other TMDB API calls
+        /// </summary>
+        /// <param name="path">The api endpoint</param>
+        /// <returns>json response</returns>
         private async Task<string> GetTMDBResponseAsync(string path)
         {
             var request = new HttpRequestMessage
@@ -35,21 +46,12 @@ namespace ToWatchList.Data
             }
         }
 
+
         //public async Task<MediaItem> GetDetailByIDAsync(string id)
         //{
         //    var jsonString = await GetTMDBResponseAsync($"/movie/{id}");
         //    MediaItem item = JsonConvert.DeserializeObject<MediaItem>(jsonString);
         //    return item;
-        //}
-
-        //public async Task<List<MediaItem>> GetListDetail(List<string> ids)
-        //{
-        //    List<MediaItem> list = new List<MediaItem>();
-        //    foreach (var id in ids)
-        //    {
-        //        list.Add(await GetDetailByIDAsync(id));
-        //    }
-        //    return list;
         //}
     }
 }

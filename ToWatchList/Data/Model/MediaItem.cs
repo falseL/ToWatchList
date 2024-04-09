@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ToWatchList.Data
+namespace ToWatchList.Data.Model
 {
     public class MediaItem
     {
