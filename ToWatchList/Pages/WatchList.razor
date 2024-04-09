@@ -2,6 +2,7 @@
 @using ToWatchList.Data
 @using ToWatchList.Interfaces
 @using Newtonsoft.Json
+@inject IDatabaseStorage DatabaseStorage
 
 <PageTitle>Watch List</PageTitle>
 
@@ -16,11 +17,9 @@
 
 @code {
     private readonly List<MediaItem> MediaItems;
-    private readonly IDatabaseStorage Database;
 
     public WatchList()
     {
-        Database = DatabaseStorageFactory.GetDatabaseStorage();
         MediaItems = new List<MediaItem>();
     }
 
@@ -32,7 +31,8 @@
     private async Task GetMediaItemsAsync()
     {
         MediaItems.Clear();
-        var list = await Database.GetListAsync();
+        // Dependency injected from Program.cs
+        var list = await DatabaseStorage.GetListAsync();
         foreach (var jsonString in list)
         {
             MediaItems.Add(JsonConvert.DeserializeObject<MediaItem>(jsonString));
@@ -42,7 +42,8 @@
     public async Task RemoveItemFromList(MediaItem media)
     {
         string mediaJson = JsonConvert.SerializeObject(media);
-        await Database.RemoveFromListAsync(mediaJson);
+        // Dependency injected from Program.cs
+        await DatabaseStorage.RemoveFromListAsync(mediaJson);
         await GetMediaItemsAsync();
         StateHasChanged();
     }

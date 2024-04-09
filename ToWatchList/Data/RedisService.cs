@@ -7,6 +7,7 @@ namespace ToWatchList.Data
     {
         private readonly IDatabase redisDb;
         private static string listKeyName = "toWatchList";
+        
         public RedisService(string connectionString)
         {
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(connectionString);

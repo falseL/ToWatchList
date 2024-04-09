@@ -3,6 +3,7 @@
 @using ToWatchList.Interfaces
 @using Newtonsoft.Json
 @inject TMDBService TMDBService
+@inject IDatabaseStorage DatabaseStorage
 
 <PageTitle>Home</PageTitle>
 
@@ -37,13 +38,14 @@
 
 @code {
     private string searchText = "";
-    private readonly IDatabaseStorage Database = DatabaseStorageFactory.GetDatabaseStorage();
 
     public List<MediaItem> MediaItems { get; set; } = new List<MediaItem>();
+    
     public async Task Search()
     {
         if (searchText.Length >= 3)
         {
+            // Dependency injected from Program.cs
             var result = await TMDBService.SearchMulti(searchText);
             MediaItems = result.Results.ToList();
         }
@@ -52,6 +54,7 @@
     public async Task SaveItemToList(MediaItem media)
     {
         string mediaJson = JsonConvert.SerializeObject(media);
-        await Database.AddToListAsync(mediaJson);
+        // Dependency injected from Program.cs
+        await DatabaseStorage.AddToListAsync(mediaJson);
     }
 }

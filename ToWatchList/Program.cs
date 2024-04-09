@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using ToWatchList.Data;
+using ToWatchList.Interfaces;
 
 namespace ToWatchList
 {
@@ -13,7 +14,14 @@ namespace ToWatchList
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
+            
+            // Injecting Implementation directly 
             builder.Services.AddSingleton<TMDBService>();
+            
+            // Injecting Interface
+            // swith bewteen Redis and SQLite
+            //builder.Services.AddSingleton<IDatabaseStorage>(DatabaseStorageFactory.GetRedisDatabaseStorage());
+            builder.Services.AddSingleton<IDatabaseStorage>(DatabaseStorageFactory.GetSQLiteDatabaseStorage());
 
             var app = builder.Build();
 
