@@ -1,9 +1,6 @@
 ﻿using System.Net.Http.Headers;
-using System.Security.Cryptography.Xml;
 using Newtonsoft.Json;
 using ToWatchList.Data.Model;
-using ToWatchList.Interfaces;
-using static System.Net.WebRequestMethods;
 
 namespace ToWatchList.Data
 {
@@ -38,12 +35,10 @@ namespace ToWatchList.Data
                 RequestUri = new Uri(baseUrl + path)
             };
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                return body;
-            }
+            using var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            var body = await response.Content.ReadAsStringAsync();
+            return body;
         }
 
 

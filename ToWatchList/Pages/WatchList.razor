@@ -12,6 +12,9 @@
 <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 g-4">
     @foreach (var item in MediaItems)
     {
+        @*  ShowDelete=true; indicate the button icon should be for deleting
+            MediaItem="@item"; provide the item for the media card
+            ItemButtonAction; provide the delegate method when button being clicked *@
         <MediaCard ShowDelete=true MediaItem="@item" ItemButtonAction="RemoveItemFromList"></MediaCard>
     }
 </div>
@@ -29,6 +32,10 @@
         return GetMediaItemsAsync();
     }
 
+    /// <summary>
+    /// Prepare the MediaItems model for displaying
+    /// </summary>
+    /// <returns></returns>
     private async Task GetMediaItemsAsync()
     {
         MediaItems.Clear();
@@ -40,12 +47,14 @@
         }
     }
 
+
     public async Task RemoveItemFromList(MediaItem media)
     {
         string mediaJson = JsonConvert.SerializeObject(media);
         // Dependency injected from Program.cs
         await DatabaseStorage.RemoveFromListAsync(mediaJson);
         await GetMediaItemsAsync();
+        // trigger MediaItems reload
         StateHasChanged();
     }
 }

@@ -19,12 +19,17 @@
 <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 g-4">
     @foreach (var item in MediaItems)
     {
+        @*  ShowDelete=false; indicate the button icon should be for adding
+            IsDisabled=false; button should be enabled by default
+            MediaItem="@item"; provide the item for the media card
+            ItemButtonAction; provide the delegate method when button being clicked *@
         <MediaCard ShowDelete=false IsDisabled=false MediaItem="@item" ItemButtonAction="SaveItemToList"></MediaCard>
     }
 </div>
 
 <div class="p-4 g-4" hidden="@(MediaItems.Count!=0)">
     <div class="alert alert-secondary" role="alert">
+        @* Provide some message when the list is empty *@
         @if(searchText.Length == 0)
         {
             @:Enter Query

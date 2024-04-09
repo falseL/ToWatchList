@@ -1,5 +1,6 @@
 ﻿@using ToWatchList.Data;
 @using ToWatchList.Data.Model
+@* hide if null or empty, those media are generally not a tv or a movie.*@
 <div hidden="@string.IsNullOrEmpty(MediaItem.FirstAirDate)" class="col">
     <div class="card mb-3">
         <div class="row g-0">
@@ -9,6 +10,7 @@
             <div class="col-md-8">
                 <div class="float-end p-2">
                     <button type="button" class="btn btn-dark" @onclick="InvokeItemButtonAction" disabled="@IsDisabled">
+                        @* show adding/removing icon based on the parameter*@
                         <span class="oi @(ShowDelete? "oi-minus":"oi-plus") " aria-hidden="true"></span>
                     </button>
                 </div>
@@ -25,6 +27,9 @@
 @code {
     [Parameter]
     public MediaItem? MediaItem { get; set; }
+    /// <summary>
+    /// Func<> Passed by Parameter, invoke method provided from parent component: adding/removing the item.
+    /// </summary>
     [Parameter]
     public Func<MediaItem, Task>? ItemButtonAction { get; set; }
     [Parameter]
